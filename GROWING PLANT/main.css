@@ -21,6 +21,35 @@ body {
   perspective: 1000px;
 }
 
+.text-display {
+  position: fixed;
+  top: 5%; /* Keeps the text at the top */
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 3rem; /* Large text size for emphasis */
+  font-weight: bold; /* Ensures the text stands out */
+  font-family: "Playfair Display", serif; /* Elegant serif font */
+  background: linear-gradient(90deg, #b8860b, #ffd700, #f0e68c, #ffd700, #b8860b); /* Gold gradient */
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent; /* Makes the gradient visible inside the text */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Adds depth with a shadow */
+  z-index: 1000; /* Ensures it appears above all other elements */
+  letter-spacing: 2px; /* Slight letter spacing */
+  animation: shimmer 3s linear infinite; /* Adds a shimmering effect */
+}
+
+/* Shimmer animation */
+@keyframes shimmer {
+  0% {
+      background-position: 0% 50%;
+  }
+  100% {
+      background-position: 100% 50%;
+  }
+}
+
+
 .night {
   position: fixed;
   left: 50%;

@@ -11,7 +11,76 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="main.css">
     <link rel="icon" href="img/flowers.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     <title>My Sunflower</title>
+  <style>
+      body {
+            margin: 0;
+            overflow: hidden;
+            background-color: black;
+            font-family: Arial, sans-serif;
+        }
+
+        .text-container {
+            position: fixed;
+            top: 5%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3rem;
+            color: gold;
+            font-family: "Brush Script MT", cursive;
+            text-shadow: 0 0 10px gold, 0 0 20px #ffd700;
+            z-index: 1000;
+            white-space: nowrap;
+            opacity: 0;
+            animation: fadeIn 3s forwards, writeText 6s steps(13, end) forwards;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes writeText {
+            0% {
+                width: 0;
+            }
+            100% {
+                width: 100%;
+            }
+        }
+
+        .text-container::after {
+            content: "I Love You";
+            display: inline-block;
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 2px solid gold;
+            animation: typing 6s steps(12, end), blink-caret 0.75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from {
+                width: 0;
+            }
+            to {
+                width: 100%;
+            }
+        }
+
+        @keyframes blink-caret {
+            from, to {
+                border-color: transparent;
+            }
+            50% {
+                border-color: gold;
+            }
+        }
+  </style> 
 </head>
 <body class="container">
     <div class="night"></div>
@@ -311,6 +380,27 @@
         </div>
       </div>
     </div>
+    <script>
+       document.addEventListener("DOMContentLoaded", function () {
+    const textDisplay = document.createElement("div");
+    textDisplay.classList.add("text-display");
+    document.body.appendChild(textDisplay);
+
+    const message = "I Love You";
+    const letters = message.split("");
+    let currentLetter = 0;
+
+    function writeText() {
+        if (currentLetter < letters.length) {
+            textDisplay.textContent += letters[currentLetter];
+            currentLetter++;
+            setTimeout(writeText, 300); // Adjust delay for typing speed
+        }
+    }
+
+    writeText();
+});
+  </script>
     <script src="main.js"></script>
   </body>
 </html>
