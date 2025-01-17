@@ -23,10 +23,10 @@ body {
 
 .text-display {
   position: fixed;
-  top: 5%; /* Keeps the text at the top */
+  top: 2%; /* Keeps the text at the top */
   left: 50%;
   transform: translateX(-50%);
-  font-size: 3rem; /* Large text size for emphasis */
+  font-size: 2rem; /* Large text size for emphasis */
   font-weight: bold; /* Ensures the text stands out */
   font-family: "Playfair Display", serif; /* Elegant serif font */
   background: linear-gradient(90deg, #b8860b, #ffd700, #f0e68c, #ffd700, #b8860b); /* Gold gradient */
@@ -37,6 +37,11 @@ body {
   z-index: 1000; /* Ensures it appears above all other elements */
   letter-spacing: 2px; /* Slight letter spacing */
   animation: shimmer 3s linear infinite; /* Adds a shimmering effect */
+  text-align: center; /* Centers text within the container */
+  max-width: 90%; /* Limits text width for better wrapping */
+ line-height: 1.5; /* Adjusts spacing between lines */
+ word-wrap: break-word; /* Ensures long words are wrapped */
+white-space: pre-wrap; /* Ensures the line breaks at spaces naturally */
 }
 
 /* Shimmer animation */
