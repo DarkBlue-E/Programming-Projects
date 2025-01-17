@@ -318,7 +318,7 @@
     textDisplay.classList.add("text-display");
     document.body.appendChild(textDisplay);
 
-    const message = "You are a blessing, Happy 3 Year Friendship Anniversary, My";
+    const message = "5/2/2022 - Present (5/2/2025.) You have always been such a blessing to me and I thank God for you every day, Happy 3 Year Friendship Anniversary, My";
     const letters = message.split("");
     let currentLetter = 0;
 
