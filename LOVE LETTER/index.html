@@ -3,18 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="title" content="Tiktok love letter effect | upio">
-    <meta name="description" content="A love letter effect made by upio">
+    <title>Interactive Love Letter</title>
 
-    <title>Tiktok Love Letter Effect by upio</title>
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/13.0.2/markdown-it.min.js"></script>
-
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp,container-queries"></script>
-
-    <!-- Pretty Font from Google Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
 
     <style>
@@ -27,6 +18,8 @@
             height: 100vh; /* Adjust height to ensure content is centered */
             margin: 0;
             text-align: center;
+            overflow: hidden;
+            position: relative;
         }
 
         h1, h2, h3, h4, h5, h6 {
@@ -45,7 +38,10 @@
             max-width: 50vw;
             max-height: 80vh;
             overflow-y: auto; /* Enable scroll if content overflows */
-            font-size: 1.2rem; /* Slightly larger text size */
+            font-size: 1.1rem; /* Adjust text size */
+            letter-spacing: 0.3px; /* Adds spacing between letters */
+            line-height: 1.6; /* Increase line height for better readability */
+            margin-top: 20px; /* Add space between heart and message */
         }
 
         #message-container.visible {
@@ -56,11 +52,15 @@
 
         /* Heart container */
         .heart-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             cursor: pointer;
-            margin-top: 20px;
+            transition: transform 0.5s ease-in-out; /* Smooth scrolling effect */
         }
 
-        /* Make sure the background and container fill the available height */
+        /* Flex container for centering content */
         .flex {
             display: flex;
             justify-content: center;
@@ -68,17 +68,17 @@
             flex-direction: column;
             width: 100%;
             height: 100vh;
+            position: relative;
         }
     </style>
 
-    <script src="js/script.js"></script>
 </head>
 <body>
     <div class="flex">
         <!-- Message Container -->
         <div id="message-container" class="hidden">
             <div class="w-[90%] mb-auto mt-auto">
-                <article id="message" class="prose"></article>
+                <article id="message"></article>
             </div>
         </div>
 
@@ -92,25 +92,41 @@
         document.addEventListener('DOMContentLoaded', function() {
             const heartIcon = document.getElementById('solid-heart');
             const messageContainer = document.getElementById('message-container');
+            const heartContainer = document.querySelector('.heart-container');
             const messageElement = document.getElementById('message');
-            const md = window.markdownit({ html: true }); // Markdown parser
 
             // Fetch and load the message content from message.txt
             fetch('message.txt')
                 .then(response => response.text())
                 .then(data => {
-                    messageElement.innerHTML = md.render(data);
+                    messageElement.textContent = data;
                 })
                 .catch(error => {
                     console.error('Error loading message.txt:', error);
-                    messageElement.innerHTML = 'Failed to load message content.';
+                    messageElement.textContent = 'Failed to load message content.';
                 });
+
+            // Function to calculate and move the heart closer based on message height
+            function adjustHeartPosition() {
+                const messageHeight = messageContainer.scrollHeight; // Get the full height of the message
+                const heartMove = Math.max(messageHeight + 20, 50); // Set a small offset for the heart position
+
+                // Apply the calculated move to heart position (closer below the message)
+                heartContainer.style.transform = `translate(-50%, calc(-50% + ${heartMove}px))`;
+            }
 
             // Add the click event listener to the heart icon
             heartIcon.addEventListener('click', () => {
                 // Toggle the visibility of the message container
                 messageContainer.classList.toggle('visible');
                 messageContainer.classList.toggle('hidden');
+
+                // Adjust the heart position based on message height
+                if (messageContainer.classList.contains('visible')) {
+                    adjustHeartPosition();
+                } else {
+                    heartContainer.style.transform = 'translate(-50%, -50%)'; // Reset heart position to center
+                }
             });
         });
     </script>
