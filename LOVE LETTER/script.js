@@ -2,8 +2,9 @@
 
     ©️ 2023 upio
 
-    credit to upio who got inspiration from a tiktok video 
-  
+    written by upio inspired by a tiktok video 
+    i was bored ok idek why im doing this 💀
+
     https://www.upio.dev
     https://e-z.bio/upio
 

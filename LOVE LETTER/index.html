@@ -1,101 +1,118 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>Tiktok Love Letter Effect by upio</title>
-        
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="title" content="Valentine's Day Letter">
-        <meta name="description" content="A love letter effect">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="title" content="Tiktok love letter effect | upio">
+    <meta name="description" content="A love letter effect made by upio">
 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/13.0.2/markdown-it.min.js"></script>
+    <title>Tiktok Love Letter Effect by upio</title>
 
-        <script src="https://cdn.tailwindcss.com"></script>
-        <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp,container-queries"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/13.0.2/markdown-it.min.js"></script>
 
-        <style>
-            @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp,container-queries"></script>
 
-            body {
-                font-family: 'Inter', sans-serif;
-            }
+    <!-- Pretty Font from Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
 
-            h1, h2, h3, h4, h5, h6 {
-                margin: 0;
-            }
+    <style>
+        body {
+            font-family: 'Dancing Script', cursive; /* Pretty cursive font */
+            background-color: #ffade1; /* Soft pink background color */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Adjust height to ensure content is centered */
+            margin: 0;
+            text-align: center;
+        }
 
-            #message-container {
-                background-color: rgba(255, 255, 255, 0.9); /* Light background for the message */
-                box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
-                border-radius: 15px;
-                padding: 20px;
-                transition: opacity 0.5s ease;
-                visibility: hidden;
-                opacity: 0;
-                max-width: 80vw;
-                margin-top: 20px;
-            }
+        h1, h2, h3, h4, h5, h6 {
+            margin: 0;
+        }
 
-            .visible {
-                visibility: visible;
-                opacity: 1;
-            }
+        /* Message container */
+        #message-container {
+            background-color: #fcdbe1; /* Light pink background for the message */
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.455);
+            padding: 20px;
+            visibility: hidden;
+            opacity: 0;
+            transform: scale(0.9);
+            transition: all 0.5s ease-in-out;
+            max-width: 50vw;
+            max-height: 80vh;
+            overflow-y: auto; /* Enable scroll if content overflows */
+            font-size: 1.2rem; /* Slightly larger text size */
+        }
 
-            .hidden {
-                visibility: hidden;
-                opacity: 0;
-            }
+        #message-container.visible {
+            visibility: visible;
+            opacity: 1;
+            transform: scale(1);
+        }
 
-            .heart-container {
-                cursor: pointer;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex justify-center items-center flex-col w-[100vw] h-[100vh]">
-            <div id="message-container" class="flex-col items-center hidden">
-                <div class="w-[90%] mb-auto mt-auto">
-                    <article id="message" class="prose"></article>
-                </div>
-            </div>
+        /* Heart container */
+        .heart-container {
+            cursor: pointer;
+            margin-top: 20px;
+        }
 
-            <div class="heart-container mt-2">
-                <i id="solid-heart" class="fa-solid fa-heart fa-beat fa-2x" style="color: #ff0000;"></i>
+        /* Make sure the background and container fill the available height */
+        .flex {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            width: 100%;
+            height: 100vh;
+        }
+    </style>
+
+    <script src="js/script.js"></script>
+</head>
+<body>
+    <div class="flex">
+        <!-- Message Container -->
+        <div id="message-container" class="hidden">
+            <div class="w-[90%] mb-auto mt-auto">
+                <article id="message" class="prose"></article>
             </div>
         </div>
 
-        <script>
-            // The message content
-            const message = `
-                # My Beloved [Name],
+        <!-- Heart Icon -->
+        <div class="heart-container">
+            <i id="solid-heart" class="fa-solid fa-heart fa-beat fa-2x" style="color: #ff0000;"></i>
+        </div>
+    </div>
 
-                In the quiet moments of my day, my thoughts invariably drift to you. I can't help but marvel at the joy your presence brings into my life. Your laughter is the soundtrack that brightens my days, and your smile, the sun that dispels any shadows.
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const heartIcon = document.getElementById('solid-heart');
+            const messageContainer = document.getElementById('message-container');
+            const messageElement = document.getElementById('message');
+            const md = window.markdownit({ html: true }); // Markdown parser
 
-                There's an ineffable comfort in being with you, a connection that goes beyond words. Your kindness and the way you make me feel cherished are the highlights of my existence. In your company, life feels not only bearable but beautiful.
+            // Fetch and load the message content from message.txt
+            fetch('message.txt')
+                .then(response => response.text())
+                .then(data => {
+                    messageElement.innerHTML = md.render(data);
+                })
+                .catch(error => {
+                    console.error('Error loading message.txt:', error);
+                    messageElement.innerHTML = 'Failed to load message content.';
+                });
 
-                Our journey together is a tapestry woven with shared moments, each one a precious thread in the fabric of our love story. You've become my home, the place where my heart feels safe, understood, and truly alive.
-
-                So here, in these few words, know that my love for you deepens with each passing day. You are the poetry my heart recites, the story my soul longs to tell. I cherish every chapter, eagerly anticipating the unwritten tales that lie ahead.
-
-                Always Yours,
-            `;
-
-            // Markdown renderer
-            const md = window.markdownit();
-            
-            // Set up event listener for the heart icon
-            document.getElementById('solid-heart').addEventListener('click', function () {
-                const messageContainer = document.getElementById('message-container');
-                const messageElement = document.getElementById('message');
-                
-                // Render the message in Markdown
-                messageElement.innerHTML = md.render(message);
-                
-                // Show the message container
-                messageContainer.classList.remove('hidden');
-                messageContainer.classList.add('visible');
+            // Add the click event listener to the heart icon
+            heartIcon.addEventListener('click', () => {
+                // Toggle the visibility of the message container
+                messageContainer.classList.toggle('visible');
+                messageContainer.classList.toggle('hidden');
             });
-        </script>
-    </body>
+        });
+    </script>
+</body>
 </html>

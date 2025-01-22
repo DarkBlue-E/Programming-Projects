@@ -2,7 +2,7 @@
 <html lang="en">
 
 
- <!-- Code used is not mine, you can find the maker of it through clicking the link https://codepen.io/mdusmanansari/pen/BamepLe -->
+ <!-- This is a modified version of a code I found online. You can find the orginal version of it through clicking the link https://codepen.io/mdusmanansari/pen/BamepLe -->
 
  
 <head>
@@ -10,7 +10,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="main.css">
-    <link rel="icon" href="img/flowers.png" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     <title>My Sunflower</title>
 </head>
