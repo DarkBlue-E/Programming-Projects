@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Tiktok Love Letter Effect by upio</title>
+        
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="title" content="Valentine's Day Letter">
+        <meta name="description" content="A love letter effect">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/13.0.2/markdown-it.min.js"></script>
+
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp,container-queries"></script>
+
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+
+            body {
+                font-family: 'Inter', sans-serif;
+            }
+
+            h1, h2, h3, h4, h5, h6 {
+                margin: 0;
+            }
+
+            #message-container {
+                background-color: rgba(255, 255, 255, 0.9); /* Light background for the message */
+                box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+                border-radius: 15px;
+                padding: 20px;
+                transition: opacity 0.5s ease;
+                visibility: hidden;
+                opacity: 0;
+                max-width: 80vw;
+                margin-top: 20px;
+            }
+
+            .visible {
+                visibility: visible;
+                opacity: 1;
+            }
+
+            .hidden {
+                visibility: hidden;
+                opacity: 0;
+            }
+
+            .heart-container {
+                cursor: pointer;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="flex justify-center items-center flex-col w-[100vw] h-[100vh]">
+            <div id="message-container" class="flex-col items-center hidden">
+                <div class="w-[90%] mb-auto mt-auto">
+                    <article id="message" class="prose"></article>
+                </div>
+            </div>
+
+            <div class="heart-container mt-2">
+                <i id="solid-heart" class="fa-solid fa-heart fa-beat fa-2x" style="color: #ff0000;"></i>
+            </div>
+        </div>
+
+        <script>
+            // The message content
+            const message = `
+                # My Beloved [Name],
+
+                In the quiet moments of my day, my thoughts invariably drift to you. I can't help but marvel at the joy your presence brings into my life. Your laughter is the soundtrack that brightens my days, and your smile, the sun that dispels any shadows.
+
+                There's an ineffable comfort in being with you, a connection that goes beyond words. Your kindness and the way you make me feel cherished are the highlights of my existence. In your company, life feels not only bearable but beautiful.
+
+                Our journey together is a tapestry woven with shared moments, each one a precious thread in the fabric of our love story. You've become my home, the place where my heart feels safe, understood, and truly alive.
+
+                So here, in these few words, know that my love for you deepens with each passing day. You are the poetry my heart recites, the story my soul longs to tell. I cherish every chapter, eagerly anticipating the unwritten tales that lie ahead.
+
+                Always Yours,
+            `;
+
+            // Markdown renderer
+            const md = window.markdownit();
+            
+            // Set up event listener for the heart icon
+            document.getElementById('solid-heart').addEventListener('click', function () {
+                const messageContainer = document.getElementById('message-container');
+                const messageElement = document.getElementById('message');
+                
+                // Render the message in Markdown
+                messageElement.innerHTML = md.render(message);
+                
+                // Show the message container
+                messageContainer.classList.remove('hidden');
+                messageContainer.classList.add('visible');
+            });
+        </script>
+    </body>
+</html>
