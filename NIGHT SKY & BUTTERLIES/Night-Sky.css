@@ -52,7 +52,7 @@ body {
   animation: animate 0.4s linear infinite;
   animation-play-state: paused !important;
   opacity: 0.9;
-}
+  filter: brightness(150%) saturate(70%) hue-rotate(25deg); /* Light blue filter */}
 
 .container:hover .butterfly {
   animation-play-state: running !important;
@@ -70,9 +70,11 @@ body {
 @keyframes animate {
  from{
   background-image: url("Black-Blue-Butterfly-Not-Flying-Night.png");
+  filter: brightness(150%) saturate(70%) hue-rotate(25deg); /* Light blue filter */
 }
+
 to {
 background-image: url("Black Blue Butterfly Flying.png");
-
+filter: brightness(150%) saturate(70%) hue-rotate(25deg); /* Light blue filter */
  }
 }
