@@ -52,11 +52,12 @@ body {
   animation: animate 0.4s linear infinite;
   animation-play-state: paused !important;
   opacity: 0.9;
-  filter: brightness(150%) saturate(70%) hue-rotate(25deg); /* Light blue filter */}
+  filter: brightness(160%) saturate(79%) hue-rotate(6deg) drop-shadow(0 0 20px rgba(135, 206, 250, 0.8)); /* Drop shadow glow */}
 
 .container:hover .butterfly {
   animation-play-state: running !important;
   transform: translateY(-200px) translateX(-10px);
+  filter: brightness(160%) saturate(79%) hue-rotate(6deg) drop-shadow(0 0 25px rgba(135, 206, 250, 1)); /* Brighter drop shadow on hover */
 }
 
 @media (max-width: 768px) {
@@ -70,11 +71,12 @@ body {
 @keyframes animate {
  from{
   background-image: url("Black-Blue-Butterfly-Not-Flying-Night.png");
-  filter: brightness(150%) saturate(70%) hue-rotate(25deg); /* Light blue filter */
+  filter: brightness(160%) saturate(79%) hue-rotate(6deg) drop-shadow(0 0 20px rgba(135, 206, 250, 0.8)); /* Consistent drop shadow */
 }
 
 to {
 background-image: url("Black Blue Butterfly Flying.png");
-filter: brightness(150%) saturate(70%) hue-rotate(25deg); /* Light blue filter */
- }
+filter: brightness(160%) saturate(79%) hue-rotate(6deg) drop-shadow(0 0 25px rgba(135, 206, 250, 1)); /* Brighter during animation */
+  }
 }
+
