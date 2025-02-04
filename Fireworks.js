@@ -1,31 +1,45 @@
-// Example dependencies: Define `randColor`, `fireNumber`, and `range`
-function randColor() {
-    const colors = ["#FF5733", "#33FF57", "#3357FF", "#F0FF33"];
+// Dynamically create a canvas element and append it to the body
+const canvas = document.createElement('canvas');
+document.body.appendChild(canvas);
+const ctx = canvas.getContext('2d');
+
+// Set canvas size to fill the window
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+// Style the body to remove margin and padding
+document.body.style.margin = '0';
+document.body.style.padding = '0';
+document.body.style.overflow = 'hidden';
+document.body.style.backgroundColor = '#000';
+
+// Example dependencies
+function randColor(colors = ["#FF5733", "#33FF57", "#3357FF", "#F0FF33"]) {
     return colors[Math.floor(Math.random() * colors.length)];
 }
 
-let fireNumber = 10; // Example number of fireworks
-let range = 50;      // Example range
+let fireNumber = 10; // Controls the number of particles in the firework
+let range = 50;      // Controls the lifespan of the particles
 
-// Fixed function
+// Function to create a full circle firework
 function makeFullCircleFirework(fire) {
-    let color = randColor();
-    let velocity = Math.random() * 8 + 8;
-    let max = fireNumber * 3; // Number of particles
+    let color = randColor(); // Random color for the firework
+    let velocity = Math.random() * 8 + 8; // Random velocity for the particles
+    let max = fireNumber * 3; // Total number of particles in the firework
     let fireworks = []; // Array to store firework particles
 
     for (let i = 0; i < max; i++) {
-        let rad = (i * Math.PI * 2) / max; // Circular angle
+        let rad = (i * Math.PI * 2) / max; // Calculate the angle for each particle
         let firework = {
-            x: fire.x,
-            y: fire.y,
-            size: Math.random() + 1.5,
-            fill: color,
-            vx: Math.cos(rad) * velocity + (Math.random() - 0.5) * 0.5,
-            vy: Math.sin(rad) * velocity + (Math.random() - 0.5) * 0.5,
-            ay: 0.06,
-            alpha: 1,
-            life: Math.round((Math.random() * range) / 2) + range / 1.5
+            x: fire.x, // Starting x position
+            y: fire.y, // Starting y position
+            size: Math.random() + 1.5, // Random size for the particle
+            fill: color, // Color of the particle
+            vx: Math.cos(rad) * velocity + (Math.random() - 0.5) * 0.5, // Horizontal velocity
+            vy: Math.sin(rad) * velocity + (Math.random() - 0.5) * 0.5, // Vertical velocity
+            ay: 0.06, // Acceleration in the y-direction (gravity)
+            alpha: 1, // Initial opacity of the particle
+            life: Math.round((Math.random() * range) / 2) + range / 1.5 // Lifespan of the particle
         };
         fireworks.push(firework); // Add the particle to the array
     }
@@ -33,7 +47,52 @@ function makeFullCircleFirework(fire) {
     return fireworks; // Return the array of fireworks
 }
 
-// Example usage
-let fire = { x: 100, y: 200 }; // Example starting point
-let fireworks = makeFullCircleFirework(fire);
-console.log(fireworks);
+// Function to update and draw fireworks
+function updateFireworks(fireworks) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
+
+    for (let i = fireworks.length - 1; i >= 0; i--) {
+        let firework = fireworks[i];
+
+        // Update position
+        firework.x += firework.vx;
+        firework.y += firework.vy;
+        firework.vy += firework.ay; // Apply gravity
+
+        // Reduce lifespan and fade out
+        firework.life--;
+        firework.alpha = firework.life / range;
+
+        // Remove dead particles
+        if (firework.life <= 0) {
+            fireworks.splice(i, 1);
+            continue;
+        }
+
+        // Draw the particle
+        ctx.beginPath();
+        ctx.arc(firework.x, firework.y, firework.size, 0, Math.PI * 2);
+        ctx.fillStyle = firework.fill;
+        ctx.globalAlpha = firework.alpha;
+        ctx.fill();
+    }
+
+    ctx.globalAlpha = 1; // Reset global alpha
+}
+
+// Main animation loop
+let fireworksArray = [];
+function animate() {
+    updateFireworks(fireworksArray);
+
+    // Create a new firework at random intervals
+    if (Math.random() < 0.05) {
+        let fire = { x: Math.random() * canvas.width, y: Math.random() * canvas.height / 2 };
+        fireworksArray.push(...makeFullCircleFirework(fire));
+    }
+
+    requestAnimationFrame(animate);
+}
+
+// Start the animation
+animate();
