@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<!-- This is an edited version of a template I found. The orgininal can be found by clicking this llink - https://github.com/notpoiu/LoveLetterEffect -->
-
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -42,7 +39,7 @@
             max-width: 50vw;
             max-height: 80vh;
             overflow-y: auto; /* Enable scroll if content overflows */
-            font-size: 1.1rem; /* Adjust text size */
+            font-size: 0.9rem; /* Smaller font size */
             letter-spacing: 0.3px; /* Adds spacing between letters */
             line-height: 1.6; /* Increase line height for better readability */
             margin-top: 20px; /* Add space between heart and message */
@@ -52,6 +49,9 @@
             visibility: visible;
             opacity: 1;
             transform: scale(1);
+        }
+        #message {
+            white-space: pre-wrap; /* Preserve spaces and line breaks */
         }
 
         /* Heart container */
@@ -75,8 +75,8 @@
             position: relative;
         }
     </style>
-
 </head>
+
 <body>
     <div class="flex">
         <!-- Message Container -->
