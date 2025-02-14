@@ -1,3 +1,5 @@
+# This is not my code, it is a modified version of the original. The original can be found by clicking the following link  https://youtube.com/shorts/TkjQkzHXqR8?si=GpDMgeAje2bTHpj6
+
 import math
 from turtle import*
 
