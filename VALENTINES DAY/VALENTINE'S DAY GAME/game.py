@@ -16,7 +16,7 @@ pygame.init()
 WIDTH, HEIGHT = 500, 500
 BASKET_WIDTH, BASKET_HEIGHT = 80, 80
 BASKET_Y = HEIGHT - 80  
-BASKET_SPEED = 15  # Increased basket speed
+BASKET_SPEED = 20  # Increased basket speed
 HEART_SIZE = 60  
 WHITE, RED, PINK = (255, 255, 255), (255, 0, 0), (255, 182, 193)
 
