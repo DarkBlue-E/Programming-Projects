@@ -1,5 +1,3 @@
-#This program is a modified version of the originial. The original can be found here - http://github.com/heryyy/love-bucket
-
 import pygame
 import random
 import os
@@ -95,6 +93,9 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+        elif event.type == pygame.KEYDOWN:  # Handle key presses
+            if event.key == pygame.K_ESCAPE:  # Toggle pause on Esc key press
+                paused = not paused
 
     # Start Screen
     if not game_started:
@@ -181,10 +182,6 @@ while running:
             running = False
 
     # Pause Functionality
-    keys = pygame.key.get_pressed()
-    if keys[pygame.K_ESCAPE]:
-        paused = not paused
-
     if paused:
         pause_text = font.render("Paused", True, (0, 0, 0))
         pause_rect = pause_text.get_rect(center=(WIDTH // 2, HEIGHT // 2))
