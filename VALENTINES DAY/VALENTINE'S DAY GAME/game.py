@@ -1,5 +1,15 @@
+#This program is a modified version of the originial. The original can be found here - http://github.com/heryyy/love-bucket
+
 import pygame
 import random
+import os
+
+# Set the working directory to the script's directory
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
+
+# Debugging: Print current working directory and file path
+print("Current Working Directory:", os.getcwd())
+print("Path to basket.png:", os.path.abspath("assets/basket.png"))
 
 # Initialize Pygame
 pygame.init()
@@ -46,6 +56,8 @@ message_font = pygame.font.Font(None, 50)
 # Game Loop
 running = True
 game_over = False
+paused = False  # Pause flag
+game_started = False  # Flag to track if the game has started
 clock = pygame.time.Clock()
 message_shown = False
 message_y = HEIGHT // 2  # Initial Y position of message for floating effect
@@ -65,7 +77,16 @@ def draw_valentine_message():
 def ask_to_retry():
     """Ask the player if they want to retry."""
     retry_text = font.render("Press SPACE to Retry or Q to Quit", True, (0, 0, 0))
-    screen.blit(retry_text, (WIDTH // 2 - 150, HEIGHT // 2 + 50))
+    retry_rect = retry_text.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 50))
+    screen.blit(retry_text, retry_rect)
+
+def start_screen():
+    """Display the start screen."""
+    screen.fill(PINK)
+    start_text = font.render("Press SPACE to Start", True, (0, 0, 0))
+    start_rect = start_text.get_rect(center=(WIDTH // 2, HEIGHT // 2))
+    screen.blit(start_text, start_rect)
+    pygame.display.flip()
 
 while running:
     screen.fill(PINK)  # Background Color
@@ -75,7 +96,14 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-    if not game_over:
+    # Start Screen
+    if not game_started:
+        start_screen()
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_SPACE]:
+            game_started = True  # Start the game when space is pressed
+
+    if game_started and not game_over and not paused:
         # Move Basket
         keys = pygame.key.get_pressed()
         if keys[pygame.K_LEFT] and basket.x > 0:
@@ -83,7 +111,7 @@ while running:
         if keys[pygame.K_RIGHT] and basket.x < WIDTH - BASKET_WIDTH:
             basket.x += BASKET_SPEED
 
-        # Spawn Hearts at Random Intervals
+        # Spawn Hearts at Random Intervals (only if game has started)
         if random.randint(1, 20) == 1:
             hearts.append([random.randint(0, WIDTH - HEART_SIZE), 0, random.randint(2, 4)])  # Slower falling speed
             # Each heart has (x, y, speed)
@@ -130,25 +158,37 @@ while running:
         # Clear the screen
         screen.fill(PINK)
 
-        # Display High Score
+        # Display High Score (centered)
         high_score_text = font.render(f"High Score: {high_score}", True, (0, 0, 0))
-        screen.blit(high_score_text, (WIDTH // 2 - 70, HEIGHT // 2 - 50))
+        high_score_rect = high_score_text.get_rect(center=(WIDTH // 2, HEIGHT // 2 - 50))
+        screen.blit(high_score_text, high_score_rect)
 
         # Draw Valentine Message
         draw_valentine_message()
 
-        # Ask to Retry
+        # Ask to Retry (centered)
         ask_to_retry()
 
         # Check for Retry or Quit
         keys = pygame.key.get_pressed()
         if keys[pygame.K_SPACE]:
             game_over = False
+            game_started = False  # Reset game state
             score = 0
             hearts = []
             basket.x = WIDTH // 2 - BASKET_WIDTH // 2  # Reset basket position
         elif keys[pygame.K_q]:
             running = False
+
+    # Pause Functionality
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_ESCAPE]:
+        paused = not paused
+
+    if paused:
+        pause_text = font.render("Paused", True, (0, 0, 0))
+        pause_rect = pause_text.get_rect(center=(WIDTH // 2, HEIGHT // 2))
+        screen.blit(pause_text, pause_rect)
 
     pygame.display.flip()
     clock.tick(30)  # 30 FPS
