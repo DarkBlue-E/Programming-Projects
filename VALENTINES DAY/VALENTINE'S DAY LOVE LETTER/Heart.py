@@ -17,4 +17,4 @@ for i in range (1000):
         for j in range(5):
             color ("red")
         goto (0,0)
-done()
+exitonclick()
